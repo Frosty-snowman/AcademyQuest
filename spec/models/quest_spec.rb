@@ -48,14 +48,6 @@ RSpec.describe Quest, type: :model do
       expect(quest.reload).not_to be_completed
     end
   end
-
-  # describe "scopes and queries" do
-  #   before do
-  #     Quest.create!(name: "First Quest", status: true, completed: true)
-  #     Quest.create!(name: "Second Quest", status: false, completed: false)
-  #   end
-  # end
-
   describe "edge cases" do
     it "handles very long quest names" do
       long_name = "a" * 255
