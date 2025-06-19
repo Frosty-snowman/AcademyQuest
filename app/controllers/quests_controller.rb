@@ -4,7 +4,6 @@ class QuestsController < ApplicationController
   def index
     @quests = Quest.order(created_at: :desc)
   end
-
   def create
     quest = Quest.new(quest_params)
     if quest.save
