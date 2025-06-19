@@ -37,7 +37,7 @@ end
 When(/^I check "(.*)"$/) do |quest_name|
   quest = Quest.find_by(name: quest_name)
   within("[data-testid='quest-form-#{quest.id}']") do
-    check("quest_completed") # ตรงกับ id หรือ name ของ checkbox
+    check("quest_completed") 
   end
 end
 
