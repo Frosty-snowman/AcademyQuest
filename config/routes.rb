@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get "brag/index"
+  get "brag" => "brag#index"
   resources :quests
   root "quests#index"
 
