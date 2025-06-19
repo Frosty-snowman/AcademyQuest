@@ -4,8 +4,14 @@
 # instead of editing this one. Cucumber will automatically load all features/**/*.rb
 # files.
 
-
 require 'cucumber/rails'
+require 'capybara/cucumber'
+require 'selenium-webdriver'
+require 'database_cleaner/active_record'
+
+Capybara.default_driver = :selenium_chrome_headless
+Capybara.javascript_driver = :selenium_chrome_headless
+Capybara.default_max_wait_time = 5
 
 # By default, any exception happening in your Rails application will bubble up
 # to Cucumber so that your scenario will fail. This is a different from how
@@ -22,14 +28,25 @@ require 'cucumber/rails'
 # 2) Set the value below to true. Beware that doing this globally is not
 # recommended as it will mask a lot of errors for you!
 #
+Before do
+  DatabaseCleaner.clean_with(:truncation)
+end
+
 ActionController::Base.allow_rescue = false
 
 # Remove/comment out the lines below if your app doesn't have a database.
 # For some databases (like MongoDB and CouchDB) you may need to use :truncation instead.
 begin
-  DatabaseCleaner.strategy = :transaction
+  DatabaseCleaner.strategy = :truncation
 rescue NameError
   raise "You need to add database_cleaner to your Gemfile (in the :test group) if you wish to use it."
+end
+
+# Database cleaner setup
+DatabaseCleaner.strategy = :truncation
+
+Before do
+  DatabaseCleaner.clean
 end
 
 # You may also want to configure DatabaseCleaner to use different strategies for certain features and scenarios.
